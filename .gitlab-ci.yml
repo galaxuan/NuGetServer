@@ -1,0 +1,14 @@
+variables:
+  Solution: NuGetServer.sln
+
+stages:
+  - build
+    
+build_job:
+  stage: build
+  script:
+  - chcp 65001
+  - echo "Restoring NuGet Packages..."
+  - C:\nuget\nuget.exe restore "$Solution"  
+  - echo "Build..."
+  - C:\MSBuild\14.0\Bin\msbuild.exe  /p:Configuration=Debug /p:Platform="Any CPU" /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /verbosity:quiet "$Solution"
